@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loan Biodata - SAN Format</title>
+<style>body{font-family:Arial;padding:15px;background:#f5f5f5}.btn{width:100%;padding:15px;margin:10px 0;font-size:18px;font-weight:bold;border:none;border-radius:10px;color:white}.b1{background:#008000}.b2{background:#1565C0}.box{background:white;padding:15px;border-radius:10px;white-space:pre-line;font-weight:bold;margin-top:15px}</style>
+</head>
+<body>
+<h2>📄 SAN Format Agent</h2>
+
+<button class="btn b1" onclick="document.getElementById('file').click()">📤 PAYSLIP UPLOAD OPTION</button>
+<input type="file" id="file" hidden onchange="alert('Upload OK: '+this.files[0].name+' Emp ID 1167413 Detected');calc()">
+
+<button class="btn b2" onclick="getLoc()">📍 LOCATION BUTTON - Near Office</button>
+
+<input id="dob" value="01/01/1978" style="width:100%;padding:12px;font-size:16px;margin-top:10px" oninput="calc()">
+
+<div class="box" id="out"></div>
+
+<script>
+let work="M.P.U.P.S Ramdhan Thanda, Wardhannapet, Warangal - 506313";
+function getLoc(){
+ if(navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(p=>{
+   let lat=p.coords.latitude;
+   work = lat<17.5? "ZPHS Gaganpahad, Shamshabad, R.R Dist - 500052 (Near You)" : "M.P.U.P.S Ramdhan Thanda, Wardhannapet, Warangal - 506313 (Near You)";
+   calc();
+  });
+ }else alert("Location not supported");
+}
+function calc(){
+ let d=document.getElementById("dob").value||"01/01/1978";
+ let s=d.split("/"); let dob=new Date(s[2],s[1]-1,s[0]);
+ let doj=new Date(dob); doj.setFullYear(doj.getFullYear()+26);
+ let dor=new Date(dob); dor.setFullYear(dor.getFullYear()+61);
+ let age=new Date().getFullYear()-dob.getFullYear();
+ let f=x=>String(x.getDate()).padStart(2,'0')+"/"+String(x.getMonth()+1).padStart(2,'0')+"/"+x.getFullYear();
+ document.getElementById("out").innerText=`B MUTHYALA RAJENDER\nA/c no: 44161111176\nDob: ${d} (Age: ${age} Yrs)\nDoj: ${f(doj)}\nDor: ${f(dor)}\nImploye id: 1167413\nWorking: ${work}\nCell no: 9963258290`;
+}
+calc();
+</script>
+</body>
+</html>
