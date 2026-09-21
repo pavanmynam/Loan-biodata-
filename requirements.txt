@@ -1,4 +1,0 @@
-streamlit
-python-dateutil
-geopy
-streamlit-js-eval
